@@ -3,13 +3,14 @@ const helmet = require('helmet');
 
 const usersRouter = require('./users/usersRouter');
 const authRouter = require('./auth/authRouter');
+const authenticator = require('./auth/authenticator');
 
 const server = express();
 
 server.use(helmet());
 server.use(express.json());
 
-server.use("/api/users", usersRouter );
+server.use("/api/users", authenticator, usersRouter );
 server.use("/api", authRouter );
 
 server.get("/", (req, res) => {
